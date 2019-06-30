@@ -9,6 +9,8 @@ module.exports = app => {
 
   // 后台管理
   router.get('/admin/login', controller.admin.login.index);
+  router.get('/admin/doLogin', controller.admin.login.doLogin);
+  router.get('/admin/verify', controller.admin.base.createImgCode); // 验证码
 
   // 管理员
   router.get('/admin/manager', controller.admin.manager.index);

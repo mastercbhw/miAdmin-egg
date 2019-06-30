@@ -57,10 +57,13 @@ body {
 #verify{	
 	height:30px;
 	line-height:30px;	  
-    width: 90px;
+	width: 90px;
 	margin-right:3px;
 }
 #verify_img{
+	display: inline-block;
+	height:30px;
+
 	cursor:pointer;
     position: relative;
     top:12px;
