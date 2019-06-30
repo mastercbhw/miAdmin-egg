@@ -8,8 +8,9 @@ module.exports = app => {
   router.get('/', controller.home.index);
 
   // 后台管理
-  router.get('/admin/login', controller.admin.login.index);
-  router.get('/admin/doLogin', controller.admin.login.doLogin);
+  router.get('/admin/login', controller.admin.login.index); // 登录页面
+  router.post('/admin/doLogin', controller.admin.login.doLogin); // 登录接口
+  router.get('/admin/logout', controller.admin.login.logout); // 退出登录接口
   router.get('/admin/verify', controller.admin.base.createImgCode); // 验证码
 
   // 管理员

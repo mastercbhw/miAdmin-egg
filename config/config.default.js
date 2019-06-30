@@ -16,7 +16,13 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1561869819081_3159';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [
+    'adminauth',
+  ];
+
+  config.adminauth = {
+    match: '/admin',
+  };
 
   // 模板引擎
   config.view = {
@@ -35,6 +41,11 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+  };
+
+  config.mongoose = {
+    url: 'mongodb://127.0.0.1:27017/eggmi',
+    optoins: {},
   };
 
   return {

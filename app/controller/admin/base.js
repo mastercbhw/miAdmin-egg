@@ -11,9 +11,10 @@ class BaseController extends Controller {
       redirectUrl,
     });
   }
-  async error(redirectUrl) {
+  async error(redirectUrl, errorMessage) {
     await this.ctx.render('/admin/public/error', {
       redirectUrl,
+      errorMessage,
     });
   }
 

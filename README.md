@@ -31,3 +31,8 @@ $ npm stop
 
 
 [egg]: https://eggjs.org
+
+
+### 数据库相关
+
+mongoDB  数据库名称为 eggmi
