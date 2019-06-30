@@ -10,11 +10,11 @@ class ManagerController extends Controller {
   }
 
   async add() {
-    this.ctx.body = '管理员添加';
+    await this.ctx.render('/admin/manager/add');
   }
 
   async edit() {
-    this.ctx.body = '管理员编辑';
+    await this.ctx.render('/admin/manager/edit');
   }
 }
 
