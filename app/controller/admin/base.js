@@ -6,9 +6,10 @@
 const Controller = require('egg').Controller;
 
 class BaseController extends Controller {
-  async success(redirectUrl) {
+  async success(redirectUrl, message = '') {
     await this.ctx.render('/admin/public/success', {
       redirectUrl,
+      message,
     });
   }
   async error(redirectUrl, errorMessage) {
