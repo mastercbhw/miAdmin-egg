@@ -8,6 +8,7 @@ module.exports = () => {
     const pathname = url.parse(ctx.request.url).pathname;
 
     ctx.state.csrf = ctx.csrf;
+    ctx.state.prevPage = ctx.request.headers.referer;
     /**
      * 用户没有登录就跳转到登录页面
      * 只有登录以后才能放问后台管理系统

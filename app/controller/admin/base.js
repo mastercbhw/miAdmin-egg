@@ -24,6 +24,22 @@ class BaseController extends Controller {
     this.ctx.response.type = 'svg'; // 指定返回的类型
     this.ctx.body = captcha.data;
   }
+
+  // 封装一个删除方法
+  async delete() {
+    /**
+     * 需要删除数据库的表
+     * 获取要删除的数据的id
+     * 执行删除
+     * 返回以前的页面 ctx.request.headers['referer'] 上一页的地址
+     */
+    const model = this.ctx.request.query.model;
+    const id = this.ctx.request.query.id;
+    await this.ctx.model[model].deleteOne({
+      _id: id,
+    });
+    this.ctx.redirect(this.ctx.state.prevPage);
+  }
 }
 
 module.exports = BaseController;

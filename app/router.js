@@ -12,6 +12,8 @@ module.exports = app => {
   router.post('/admin/doLogin', controller.admin.login.doLogin); // 登录接口
   router.get('/admin/logout', controller.admin.login.logout); // 退出登录接口
   router.get('/admin/verify', controller.admin.base.createImgCode); // 验证码
+  router.get('/admin/delete', controller.admin.base.delete); // 删除方法
+
 
   // 管理员
   router.get('/admin/manager', controller.admin.manager.index);
