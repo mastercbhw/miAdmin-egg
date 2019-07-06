@@ -10,26 +10,47 @@
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					编辑权限
+					修改权限
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive input-form">
-						<form action="/doAdd" method="post">
+						<form action="/admin/access/doEdit" method="post">
+							<input type="hidden" name="_csrf" value="<%-csrf%>" />
+							<input type="text" name="_id" hidden value="<%= data._id %>" />
 							<ul>
-								<li> 权限名称: <input type="text" name="title" /></li>
-
-								<li> 权限图片: <input type="file" name="pic" /></li>
-								<li> 权限价格: <input type="text" name="price" /></li>
-								<li> 权限邮费: <input type="text" name="fee" /></li>
-
+								<li> 模块名称: <input type="text" name="module_name" value="<%= data.module_name %>" /></li>
 								<li>
-									权限描述:
-									<textarea name="description" id="" cols="60" rows="8"></textarea>
+									节点类型:
+									<!-- 1、表示模块   2、表示菜单     3、操作 -->
+									<select name="type" id="type">
+										<option value="1" <%if(data.type == 1) {%> selected <%}%> >模块</option>
+										<option value="2" <%if(data.type == 2) {%> selected <%}%> >菜单</option>
+										<option value="3"<%if(data.type == 3) {%> selected <%}%> >操作</option>
+									</select>
 								</li>
+								<li> 操作名称: <input type="text" name="action_name" value="<%= data.action_name %>" /></li>
+								<li> 操作地址: <input type="text" name="url" value="<%= data.url %>" /></li>
 
+								<li> 所属模块:
+									<select name="module_id" id="module_id">
+										<option value="0" <%if(data.module_id == '0') {%> selected <%}%> >---顶级模块--</option>
+										<%for(var i=0;i<moduleList.length;i++){%>
+											<option
+												value="<%=moduleList[i]._id%>"
+												<% if(data.module_id == moduleList[i]._id.toString()) {%> selected <%}%>
+											>
+												<%=moduleList[i].module_name%>
+											</option>
+										<%}%>
+									</select>
+								</li>
+								<li> 排　　序: <input type="text" name="sort" value="<%= data.sort %>"/></li>
+								<li> 描　　述 :
+									<textarea name="description" id="description" cols="60" rows="5"><%- data.description %></textarea>
+								</li>
 								<li>
-									<br />
-									<button type="submit" class="btn btn-default">提交</button>
+										<br/>
+										<button type="submit" class="btn btn-default">提交</button>
 								</li>
 
 							</ul>

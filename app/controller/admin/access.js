@@ -46,7 +46,24 @@ class AccessController extends BaseController {
   }
 
   async edit() {
-    await this.ctx.render('/admin/access/edit');
+    const moduleList = await this.ctx.model.Access.find({ module_id: '0' });
+    const id = this.ctx.request.query.id;
+    const accessResult = await this.ctx.model.Access.find({ _id: id });
+
+    await this.ctx.render('/admin/access/edit', {
+      moduleList,
+      data: accessResult[0],
+    });
+  }
+
+  async doEdit() {
+    const id = this.ctx.request.body;
+    const editData = this.ctx.request.body;
+    if (editData.module_id && editData.module_id !== '0') {
+      editData.module_id = this.app.mongoose.Types.ObjectId(editData.module_id);
+    }
+    await this.ctx.model.Access.updateOne({ _id: id }, editData);
+    await this.success('/admin/access', '修改权限成功');
   }
 
   async delete() {
