@@ -15,7 +15,13 @@ module.exports = () => {
      */
     if (ctx.session.userinfo) {
       ctx.state.userinfo = ctx.session.userinfo;
-      await next();
+      const hasAuth = await ctx.service.admin.checkAuth();
+
+      if (hasAuth) {
+        await next();
+      } else {
+        ctx.body = '没有权限访问';
+      }
     } else {
       // 排除不需要登录的页面
       if (pathname === '/admin/login' || pathname === '/admin/doLogin' || pathname === '/admin/verify') {
