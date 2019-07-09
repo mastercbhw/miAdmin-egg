@@ -60,48 +60,11 @@ class RoleController extends BaseController {
   async auth() {
     const role_id = this.ctx.request.query.id;
 
-    const result = await this.ctx.model.Access.aggregate([
-      {
-        $lookup: {
-          from: 'accesses',
-          localField: '_id',
-          foreignField: 'module_id',
-          as: 'items',
-        },
-      },
-      {
-        $match: {
-          module_id: '0',
-        },
-      },
-    ]);
-    console.log('TCL: auth -> result', result);
-
-    // 查询当前角色所拥有的权限（查询当前角色的权限id） 把查找到的数据放到数据中
-    const accessResult = await this.ctx.model.RoleAccess.find({ role_id });
-    const roleAccessArray = [];
-    accessResult.forEach(_ => { roleAccessArray.push(_.access_id.toString()); });
-
-    // 循环遍历所有的权限数据，判断当前权限是否在角色权限的数组中
-    result.forEach(warp => {
-      if (roleAccessArray.includes(warp._id.toString())) {
-        warp.checked = true;
-      }
-      warp.items.forEach(item => {
-        if (roleAccessArray.includes(item._id.toString())) {
-          item.checked = true;
-        }
-      });
-    });
-
-
-    console.log('TCL: auth -> result', result);
-
+    const result = await this.ctx.service.admin.getAuthList(role_id);
 
     await this.ctx.render('/admin/role/auth', {
       role_id,
       list: result,
-      roleAccessArray,
     });
   }
 
