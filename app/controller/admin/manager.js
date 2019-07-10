@@ -14,7 +14,6 @@ class ManagerController extends BaseController {
       },
     }]);
 
-    console.log('TCL: ManagerController -> index -> list', list);
     await this.ctx.render('/admin/manager/index', {
       list,
     });
@@ -47,7 +46,6 @@ class ManagerController extends BaseController {
     const roleResult = await this.ctx.model.Role.find();
     const id = this.ctx.request.query.id;
     const adminResult = await this.ctx.model.Admin.find({ _id: id });
-    console.log('TCL: ManagerController -> edit -> adminResult', adminResult);
     await this.ctx.render('/admin/manager/edit', {
       roleResult,
       adminResult: adminResult[0],
@@ -56,10 +54,8 @@ class ManagerController extends BaseController {
 
   async doEdit() {
     const addResult = this.ctx.request.body;
-    console.log('TCL: ManagerController -> doEdit -> addResult', addResult);
     // 如果password为空，则不修改密码，如果password存在，则修改密码
     const { id, password, mobile, email, role_id } = addResult;
-    console.log('TCL: ManagerController -> doEdit -> mobile', mobile);
     if (password) {
       await this.ctx.model.Admin.updateOne({ _id: id }, {
         mobile,

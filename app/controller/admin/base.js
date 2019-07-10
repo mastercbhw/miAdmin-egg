@@ -40,6 +40,38 @@ class BaseController extends Controller {
     });
     this.ctx.redirect(this.ctx.state.prevPage);
   }
+
+  async changeStatus() {
+
+    // 数据库表Model 更新的属性 更新的Id
+    const { model, attr, id } = this.ctx.request.query;
+    console.log('TCL: changeStatus -> id', id);
+    console.log('TCL: changeStatus -> attr', attr);
+    console.log('TCL: changeStatus -> model', model);
+    const result = await this.ctx.model[model].find({ _id: id });
+    console.log('TCL: BaseController -> changeStatus -> result', result);
+    if (result.length > 0) {
+      let json = {};
+      if (result[0][attr] === 1) {
+        json = {
+          [attr]: 0,
+        };
+      } else {
+        json = {
+          [attr]: 1,
+        };
+      }
+      const updateResult = await this.ctx.model[model].updateOne({ _id: id }, json);
+      console.log('TCL: BaseController -> changeStatus -> updateResult', updateResult);
+      if (updateResult) {
+        this.ctx.body = { message: '更新成功', success: true };
+      } else {
+        this.ctx.body = { message: '更新失败', success: false };
+      }
+    } else {
+      this.ctx.body = { message: '更新失败，参数错误', success: false };
+    }
+  }
 }
 
 module.exports = BaseController;

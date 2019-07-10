@@ -13,6 +13,7 @@ module.exports = app => {
   router.get('/admin/logout', controller.admin.login.logout); // 退出登录接口
   router.get('/admin/verify', controller.admin.base.createImgCode); // 验证码
   router.get('/admin/delete', controller.admin.base.delete); // 删除方法
+  router.get('/admin/changeStatus', controller.admin.base.changeStatus);
 
 
   // 管理员

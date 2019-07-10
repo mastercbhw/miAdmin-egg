@@ -14,7 +14,6 @@ class AdminService extends Service {
      */
     // 获取当前访问的url
     const pathname = url.parse(this.ctx.request.url).pathname;
-    console.log('TCL: AdminService -> checkAuth -> pathname', pathname);
 
     // 获取当前用户的角色
     const userinfo = this.ctx.session.userinfo;
@@ -39,7 +38,6 @@ class AdminService extends Service {
 
 
     const accessUrlReault = await this.ctx.model.Access.find({ url: pathname });
-    console.log('TCL: AdminService -> checkAuth -> accessUrlReault', accessUrlReault);
 
     if (accessUrlReault.length > 0 && assessArray.length > 0 && assessArray.includes(accessUrlReault[0]._id.toString())) {
       return true;
